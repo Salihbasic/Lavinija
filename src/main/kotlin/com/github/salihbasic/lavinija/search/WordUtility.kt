@@ -9,20 +9,6 @@ object WordUtility {
     private val punctuationPattern = Regex("[.,/#!\$%^&*;:{}=\\-_`~()\\[\\]?\"<>]+")
     private val extraWhitespace = Regex("\\s{2,}")
 
-    // We have to include both u and v
-    private val checkIBeforeVowel = Regex("i(?=[aeiouv])")
-
-    private val vowels = setOf(
-        "a",
-        "e",
-        "i",
-        "o",
-        "u",
-        "y"
-    )
-
-    fun isVowel(letter: String): Boolean = letter in this.vowels
-
     /**
      * Strips off the usual punctuation and extra whitespace from a given word thus making it usable
      *
@@ -35,34 +21,12 @@ object WordUtility {
         return word.replace(punctuationPattern, "").replace(extraWhitespace, " ")
     }
 
-    /**
-     * Checks whether the provided word contains at least one uppercase character
-     *
-     * @param word Word which may have an uppercase character
-     * @return `true` if the word contains at least one uppercase character
-     */
-    fun containsUppercase(word: String): Boolean {
-        return word.contains(uppercasePattern)
-    }
+    fun containsUppercase(word: String): Boolean = word.contains(uppercasePattern)
 
+    fun replaceIwithJ(word: String): String = word.replace('i', 'j').replace('I', 'J')
 
-    fun replaceIwithJ(word: String): String {
+    fun replaceVwithU(word: String): String = word.replace('v', 'u').replace('V', 'U')
 
-        val startReplaced = when (word[0]) {
-            'i' -> word.replaceFirst('i', 'j')
-            'I' -> word.replaceFirst('I', 'J')
-            else -> word
-        }
-
-        // Except last vowel
-        return startReplaced.replace(checkIBeforeVowel, "j")
-
-    }
-
-    fun replaceVwithU(word: String): String {
-        // Don't replace starting v/V
-        return word.replace("v", "u").replace("V", "U")
-    }
 
 
 

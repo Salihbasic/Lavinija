@@ -2,6 +2,7 @@ package com.github.salihbasic.lavinija.data.inflections
 
 import com.github.salihbasic.lavinija.data.DataLoader
 import com.github.salihbasic.lavinija.data.INFLECTS_PATH
+import com.github.salihbasic.lavinija.search.WordUtility
 
 /**
  * Represents a top-level abstraction for all inflection related operations
@@ -185,7 +186,10 @@ class Inflections(inflectionsPath: String = INFLECTS_PATH) {
 
             val ending = if (indexedEntry.value.pos == pos) indexedEntry.value.ending else continue
 
-            result.add(Pair(ending, indexedEntry.index))
+            // Dirty trick to work with u/v and i/j
+            val replacedValues = WordUtility.replaceIwithJ(WordUtility.replaceVwithU(ending))
+
+            result.add(Pair(replacedValues, indexedEntry.index))
 
         }
 

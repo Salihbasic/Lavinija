@@ -94,18 +94,14 @@ class Searcher(val dictionary: Dictionary,
     fun pairStemsWithEndings(word: String, emptyEnding: Boolean = true): List<Pair<String, String>> {
         val result = mutableListOf<Pair<String, String>>()
 
-        var strippedWord = WordUtility.stripPunctuation(word)
+        // Ugly lispy code
+        var strippedWord =
+            WordUtility.stripPunctuation(
+                WordUtility.replaceVwithU(
+                    WordUtility.replaceIwithJ(word)))
 
         if (this.searchOptions.contains(SearchOptions.CASE_INSENSITIVE)) {
             strippedWord = strippedWord.lowercase()
-        }
-
-        if (this.searchOptions.contains(SearchOptions.REPLACE_V_WITH_U)) {
-            strippedWord = WordUtility.replaceVwithU(strippedWord)
-        }
-
-        if (this.searchOptions.contains(SearchOptions.REPLACE_I_WITH_J)) {
-            strippedWord = WordUtility.replaceIwithJ(strippedWord)
         }
 
         for (index in 0..strippedWord.length) {

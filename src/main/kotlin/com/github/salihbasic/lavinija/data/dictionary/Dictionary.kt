@@ -2,6 +2,7 @@ package com.github.salihbasic.lavinija.data.dictionary
 
 import com.github.salihbasic.lavinija.data.DICTLINE_PATH
 import com.github.salihbasic.lavinija.data.DataLoader
+import com.github.salihbasic.lavinija.search.WordUtility
 
 /**
  * Represents a top-level abstraction for all dictionary related operations
@@ -165,7 +166,10 @@ class Dictionary(dictionaryPath: String = DICTLINE_PATH) {
 
             val stem = indexedEntry.value.stems.elementAtOrNull(index) ?: continue
 
-            result.add(Pair(stem, indexedEntry.index))
+            // Dirty trick to work with u/v and i/j
+            val replacedValues = WordUtility.replaceIwithJ(WordUtility.replaceVwithU(stem))
+
+            result.add(Pair(replacedValues, indexedEntry.index))
 
         }
 

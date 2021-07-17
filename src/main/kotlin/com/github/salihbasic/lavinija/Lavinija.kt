@@ -18,8 +18,7 @@ fun main(args: Array<String>) {
     val inflections = Inflections()
 
     val searchOptions = setOf(
-        SearchOptions.REPLACE_I_WITH_J,
-        SearchOptions.REPLACE_V_WITH_U
+        SearchOptions.CASE_INSENSITIVE
     )
 
     val searcher = Searcher(dictionary, inflections, searchOptions)
